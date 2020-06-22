@@ -1,0 +1,15 @@
+2020-06-18 11:07:36.407137 : <class 'type'> None None
+2020-06-18 11:07:52.331366 : <class 'type'> None None
+2020-06-18 11:07:52.331535 : <class 'type'> None None
+2020-06-18 11:08:12.258369 : <class 'type'> division by zero <traceback object at 0x7ffc4188e240>
+2020-06-18 11:09:28.170683 : <class 'type'> division by zero <traceback object at 0x7fbe031898c0>
+2020-06-18 11:10:47.677667 : <class 'type'> division by zero <traceback object at 0x7fb48077ca00>
+2020-06-18 11:11:05.226252 : <class 'type'> None None
+2020-06-18 11:11:05.226415 : <class 'type'> None None
+2020-06-18 11:12:11.355041 : <class 'type'> division by zero <traceback object at 0x7fd339889980>
+2020-06-18 11:12:33.369743 :  division by zero <traceback object at 0x7f8a0b9899c0>
+2020-06-18 11:13:21.937952 :  division by zero 
+2020-06-18 11:13:47.178154 :  division by zero 
+2020-06-18 11:14:32.816914 :  division by zero 
+2020-06-18 11:15:56.986577 :  division by zero 
+2020-06-18 11:16:11.183987 :  division by zero 
