@@ -2,7 +2,6 @@
 import functools
 from abc import ABC, abstractmethod
 
-
 @functools.total_ordering
 class Currency(ABC):
     """1 EUR == 2 USD == 100 RUB"""
@@ -26,7 +25,7 @@ class Currency(ABC):
             raise ValueError("Value cannot be negative")
         self._value = val
 
-    def to(self, currency):
+    def to(self, currency: type):
         return currency(self.value * self.course_v(currency))
 
     def __eq__(self, other):
@@ -76,7 +75,10 @@ class Euro(Currency):
 
     @staticmethod
     def course_v(currency: type):
-        return {Euro: 1, Dollar: 2, Rubble: 100,}[currency]
+        if isinstance(currency, type)  and issubclass(currency, Currency):
+            return {Euro: 1, Dollar: 2, Rubble: 100,}[currency]
+        else:
+            raise ValueError('Currency class required')
 
     @staticmethod
     def course(currency: type):
