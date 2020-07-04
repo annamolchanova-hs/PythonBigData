@@ -1,123 +1,82 @@
-'''
+"""
 Домашнее задание
 2. К каждому элементу списка применить какуе-либо преобразование (например, для числового списка - возвести в кавдрат,
  для строкового - привести к верхнему регистру, отфильтровать определенные символы, и т.д.).
-'''
+"""
 
-import timeit
 import random
+import string
+from time import perf_counter
 
-def multiple_1(x):
+
+def squared_append(x: list):
     y = list()
     for i in x:
-        y.append(i*i)
+        y.append(i * i)
     return y
 
-def multiple_2(x):
-    return map(lambda i: i*i, x)
 
-def multiple_3(x):
-    return [i*i for i in x]
+def squared_map(x: list):
+    return map(lambda i: i * i, x)
 
 
-def create_dict_2(n):
-    x = list()
-    for i in range(n):
-        t = (i, i * 100 + i)
-        x.append(t)
-    return dict(x)
-
-def read_dict_1(x: dict):
-    for i in x.keys():
-        a = x[i]
+def squared_comrehension(x: list):
+    return [i * i for i in x]
 
 
-def read_dict_2(x: dict):
-    for i in x.keys():
-        a = x.get(i)
+def upper_append(x: list):
+    y = list()
+    for i in x:
+        y.append(i.upper())
+    return y
 
 
-#create_dict_1(1000)
-#create_dict_2(1000)
-
-def create_dict_time():
-    '''Compute create_dict_1'''
-    SETUP_CODE = 'from __main__ import create_dict_1'
-
-    TEST_CODE = 'create_dict_1(1000)'
-
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    print('Creating simple dict  time: {}'.format(min(times)))
-
-def create_dict_from_tuple_time():
-    '''Compute create_dict_2'''
-    SETUP_CODE = 'from __main__ import create_dict_2'
-
-    TEST_CODE = 'create_dict_2(1000)'
-
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    print('Creating  dict  from tuple time: {}'.format(min(times)))
+def upper_map(x: list):
+    return map(lambda i: i.upper(), x)
 
 
-
-def read_dict_time():
-    '''Compute reading from dict'''
-    SETUP_CODE = ''' 
-from __main__ import create_dict_1, read_dict_1 
-'''
-
-    TEST_CODE = ''' 
-mydict = create_dict_1(1000)
-read_dict_1(mydict)
-'''
-
-    # timeit.repeat statement
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    # printing minimum exec. time
-    print('read dict time: {}'.format(min(times)))
+def upper_comprehension(x: list):
+    return [i.upper() for i in x]
 
 
-def read_dict_with_get_time():
-    '''Compute readinf dict'''
-    SETUP_CODE = ''' 
-from __main__ import create_dict_1, read_dict_2 
-'''
-
-    TEST_CODE = ''' 
-mydict = create_dict_1(1000)
-read_dict_2(mydict) 
-	'''
-    # timeit.repeat statement
-    times = timeit.repeat(setup=SETUP_CODE,
-                          stmt=TEST_CODE,
-                          repeat=3,
-                          number=10000)
-
-    # priniting minimum exec. time
-    print('Read dict with get  time: {}'.format(min(times)))
+def randomString(stringLength=8):
+    letters = string.ascii_lowercase
+    return "".join(random.choice(letters) for i in range(stringLength))
 
 
 if __name__ == "__main__":
+    x = range(1_000_000)
 
-    num_list = list()
-    for i in range(0, 500):
-        n = random.randint(1, 30)
-        num_list.append(n)
+    # для числового списка - возвести в кавдрат
+    t_start = perf_counter()
+    squared_append(x)
+    t_stop = perf_counter()
+    print(f" squared list by appending ={t_stop - t_start}")
 
-    multiple_1(num_list)
-    multiple_2(num_list)
-    multiple_3(num_list)
+    t_start = perf_counter()
+    squared_map(x)
+    t_stop = perf_counter()
+    print(f" squared list by mapping ={t_stop - t_start}")
 
+    t_start = perf_counter()
+    squared_comrehension(x)
+    t_stop = perf_counter()
+    print(f" squared list by comrehension ={t_stop - t_start}")
 
+    # для строкового - привести к верхнему регистру
+    x = [randomString() for _ in range(1_000_000)]
+
+    t_start = perf_counter()
+    upper_append(x)
+    t_stop = perf_counter()
+    print(f" uppercase for list by appending ={t_stop - t_start}")
+
+    t_start = perf_counter()
+    upper_map(x)
+    t_stop = perf_counter()
+    print(f" uppercase for list by map ={t_stop - t_start}")
+
+    t_start = perf_counter()
+    upper_comprehension(x)
+    t_stop = perf_counter()
+    print(f" uppercase for list by comrehension ={t_stop - t_start}")
